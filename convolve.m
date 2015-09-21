@@ -27,5 +27,5 @@ function outImage = convolve(inImage, mask)
             end
         end
     end
-    outImage = paddedOutImage(startRow:endRow, startCol:endCol);
+    outImage = uint8(paddedOutImage(startRow:endRow, startCol:endCol));
 end
