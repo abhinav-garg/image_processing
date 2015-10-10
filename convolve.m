@@ -1,8 +1,14 @@
 function outImage = convolve(inImage, mask)
     % Slow version, vectorise the convolution later
     
+    % Pseudo-code for f*h
+    % Flip the mask h(-i, -j)
+    % Shift it by x, y -> h(x-i, y-j)
+    % Pointwise multiply with f -> f(x,y).h(x-i, y-j)
+    
     [imXMax imYMax] = size(inImage);
     [maskXMax maskYMax] = size(mask);
+    mask = -mask; % Won't usually matter since masks are symmetric  
     
     % Add some padding for convolution
     % Mask will usually have odd by odd dimensions
