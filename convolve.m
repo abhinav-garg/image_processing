@@ -7,8 +7,7 @@ function outImage = convolve(inImage, mask)
     % Pointwise multiply with f -> f(x,y).h(x-i, y-j)
     
     [imXMax imYMax] = size(inImage);
-    [maskXMax maskYMax] = size(mask);
-    mask = -mask; % Won't usually matter since masks are symmetric  
+    [maskXMax maskYMax] = size(mask);    % Mask needs to be odd X odd
     
     % Add some padding for convolution
     % Mask will usually have odd by odd dimensions
@@ -28,7 +27,8 @@ function outImage = convolve(inImage, mask)
             % Inner two loops run through the mask
             for i = -(maskXMax-1)/2:(maskXMax-1)/2
                 for j = -(maskXMax-1)/2:(maskXMax-1)/2
-                    paddedOutImage(x,y) = paddedOutImage(x,y) + paddedInImage(x+i,y+j)*mask(1+i+(maskXMax-1)/2,1+j+(maskXMax-1)/2);
+                    % Mask is spatially flipped
+                    paddedOutImage(x,y) = paddedOutImage(x,y) + paddedInImage(x+i,y+j)*mask(1-i+(maskXMax-1)/2,1-j+(maskXMax-1)/2);
                 end
             end
         end
